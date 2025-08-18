@@ -1,62 +1,185 @@
-import { Check, Star, Crown, Zap, Shield } from "lucide-react";
+import { Check, Star, Crown, Zap, Shield, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 
 const Pricing = () => {
+  const [selectedPackage, setSelectedPackage] = useState("bat-tu");
+  const [timeLeft, setTimeLeft] = useState({
+    days: 5,
+    hours: 22,
+    minutes: 56,
+    seconds: 57,
+  });
+
+  // Countdown timer effect
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 };
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        } else if (prev.hours > 0) {
+          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        } else if (prev.days > 0) {
+          return {
+            ...prev,
+            days: prev.days - 1,
+            hours: 23,
+            minutes: 59,
+            seconds: 59,
+          };
+        }
+        return prev;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const packages = [
     {
-      name: "Basic",
+      id: "tong-quat",
+      name: "Luận Tổng Quát",
       price: "299k",
-      originalPrice: "399k",
-      icon: Zap,
-      features: [
-        "Tổng quan mệnh cục cá nhân",
-        "Đại vận 10 năm gần nhất",
-        "3 khuyến nghị hành động",
-        "File PDF chi tiết",
-        "Giao kết quả trong 24h"
-      ],
-      isPopular: false,
-      description: "Phù hợp để bắt đầu hiểu mình"
+      originalPrice: null,
+      description: "Xem Đại Vận 10 năm (Tình duyên - Công việc - Tài chính)",
+      features: {
+        "Xem Đại Vận 10 năm": true,
+        "Phân tích tình duyên": true,
+        "Phân tích công việc": true,
+        "Phân tích tài chính": true,
+        "Xem từng Đại Vận trọn đời": false,
+        "Nhận biết Quý Nhân": false,
+        "Thuật phong thuỷ Chiêu Tài": false,
+        "Luận tuổi hợp": false,
+        "Xem năm cưới": false,
+        "Bản đồ sao chiêm tinh": false,
+        "Gieo quẻ Kinh Dịch": false,
+      },
     },
     {
-      name: "Pro",
-      price: "499k", 
+      id: "tron-doi",
+      name: "Tử Vi Trọn Đời",
+      price: "599k",
+      originalPrice: null,
+      description: "Xem từng Đại Vận trọn đời chi tiết",
+      features: {
+        "Xem Đại Vận 10 năm": true,
+        "Phân tích tình duyên": true,
+        "Phân tích công việc": true,
+        "Phân tích tài chính": true,
+        "Xem từng Đại Vận trọn đời": true,
+        "Nhận biết Quý Nhân": false,
+        "Thuật phong thuỷ Chiêu Tài": false,
+        "Luận tuổi hợp": false,
+        "Xem năm cưới": false,
+        "Bản đồ sao chiêm tinh": false,
+        "Gieo quẻ Kinh Dịch": false,
+      },
+    },
+    {
+      id: "bat-tu",
+      name: "Bát Tự Trọn Đời",
+      price: "499k",
       originalPrice: "699k",
-      icon: Star,
-      features: [
-        "Tất cả tính năng Basic",
-        "Roadmap chi tiết 20 năm",
-        "Phân tích tài lộc/quan lộ sâu",
-        "1 buổi Q&A 20 phút", 
-        "Cập nhật vận hạn hàng năm",
-        "Hỗ trợ qua email 3 tháng"
-      ],
+      description: "Nhận biết Quý Nhân + Dùng thuật phong thuỷ để Chiêu Tài",
       isPopular: true,
-      description: "Được chọn nhiều nhất"
+      features: {
+        "Xem Đại Vận 10 năm": true,
+        "Phân tích tình duyên": true,
+        "Phân tích công việc": true,
+        "Phân tích tài chính": true,
+        "Xem từng Đại Vận trọn đời": true,
+        "Nhận biết Quý Nhân": true,
+        "Thuật phong thuỷ Chiêu Tài": true,
+        "Luận tuổi hợp": false,
+        "Xem năm cưới": false,
+        "Bản đồ sao chiêm tinh": false,
+        "Gieo quẻ Kinh Dịch": false,
+      },
     },
     {
-      name: "Premium",
-      price: "799k",
-      originalPrice: "999k", 
-      icon: Crown,
-      features: [
-        "Tất cả tính năng Pro",
-        "Luận giải toàn diện 80 năm",
-        "Tình cảm–gia đạo–sức khỏe mở rộng",
-        "Checklist hành động theo từng giai đoạn",
-        "Q&A 40 phút với chuyên gia",
-        "Tư vấn cá nhân hóa trọn đời"
-      ],
-      isPopular: false,
-      description: "Giải pháp toàn diện nhất"
-    }
+      id: "tinh-duyen",
+      name: "Tình Duyên",
+      price: "199k",
+      originalPrice: null,
+      description: "Luận Tuổi hợp dựa trên Tử Vi/Bát tự - Xem năm cưới",
+      features: {
+        "Xem Đại Vận 10 năm": false,
+        "Phân tích tình duyên": true,
+        "Phân tích công việc": false,
+        "Phân tích tài chính": false,
+        "Xem từng Đại Vận trọn đời": false,
+        "Nhận biết Quý Nhân": false,
+        "Thuật phong thuỷ Chiêu Tài": false,
+        "Luận tuổi hợp": true,
+        "Xem năm cưới": true,
+        "Bản đồ sao chiêm tinh": false,
+        "Gieo quẻ Kinh Dịch": false,
+      },
+    },
+    {
+      id: "ban-do-sao",
+      name: "Bản Đồ Sao - Chiêm Tinh",
+      price: "399k",
+      originalPrice: "499k",
+      description: "2 lá số của Quý khách và Người thương",
+      features: {
+        "Xem Đại Vận 10 năm": false,
+        "Phân tích tình duyên": true,
+        "Phân tích công việc": false,
+        "Phân tích tài chính": false,
+        "Xem từng Đại Vận trọn đời": false,
+        "Nhận biết Quý Nhân": false,
+        "Thuật phong thuỷ Chiêu Tài": false,
+        "Luận tuổi hợp": true,
+        "Xem năm cưới": false,
+        "Bản đồ sao chiêm tinh": true,
+        "Gieo quẻ Kinh Dịch": false,
+      },
+    },
+    {
+      id: "kinh-dich",
+      name: "Gieo Quẻ Kinh Dịch",
+      price: "199k",
+      originalPrice: "250k",
+      description: "Giải đáp thắc mắc qua Kinh Dịch",
+      features: {
+        "Xem Đại Vận 10 năm": false,
+        "Phân tích tình duyên": false,
+        "Phân tích công việc": false,
+        "Phân tích tài chính": false,
+        "Xem từng Đại Vận trọn đời": false,
+        "Nhận biết Quý Nhân": false,
+        "Thuật phong thuỷ Chiêu Tài": false,
+        "Luận tuổi hợp": false,
+        "Xem năm cưới": false,
+        "Bản đồ sao chiêm tinh": false,
+        "Gieo quẻ Kinh Dịch": true,
+      },
+    },
+  ];
+
+  const allFeatures = [
+    "Xem Đại Vận 10 năm",
+    "Phân tích tình duyên",
+    "Phân tích công việc",
+    "Phân tích tài chính",
+    "Xem từng Đại Vận trọn đời",
+    "Nhận biết Quý Nhân",
+    "Thuật phong thuỷ Chiêu Tài",
+    "Luận tuổi hợp",
+    "Xem năm cưới",
+    "Bản đồ sao chiêm tinh",
+    "Gieo quẻ Kinh Dịch",
   ];
 
   const scrollToForm = () => {
-    const form = document.getElementById('order-form');
+    const form = document.getElementById("order-form");
     if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
+      form.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -64,100 +187,164 @@ const Pricing = () => {
     <section className="py-20 bg-background" id="pricing">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Đầu tư cho sự rõ ràng
+          <h2 className="font-inter text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Tham gia cùng 45.346 người yêu thích
+            <br />
+            Tử Vi Trúc Nghi
           </h2>
-          <p className="text-muted-foreground font-inter text-lg max-w-3xl mx-auto leading-relaxed mb-8">
-            So với khoá học thường 20–60 triệu và tốn nhiều tháng, bạn nhận ngay lộ trình 
-            vận hạn trong 1 file PDF, đi thẳng vào việc áp dụng.
-          </p>
-          
-          <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full text-sm font-medium">
-            <Shield className="w-4 h-4" />
-            Bảo đảm minh bạch - Không cam kết làm giàu/đoán trúng 100%
+
+          <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-sm font-medium mb-8">
+            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+            TUẦN NÀY GIẢM GIÁ -50% OFF
+            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
-          {packages.map((pkg, index) => (
-            <Card 
-              key={index}
-              className={`relative bg-gradient-card border-0 shadow-medium hover:shadow-strong transition-all duration-300 animate-slide-up ${
-                pkg.isPopular ? 'ring-2 ring-secondary scale-105' : ''
-              }`}
-              style={{animationDelay: `${index * 0.2}s`}}
-            >
-              {pkg.isPopular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-secondary text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold">
-                    Được chọn nhiều nhất
-                  </div>
-                </div>
-              )}
-              
-              <CardContent className="p-8">
-                <div className="text-center mb-6">
-                  <div className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4 ${
-                    pkg.isPopular ? 'bg-secondary/20' : 'bg-primary/10'
-                  }`}>
-                    <pkg.icon className={`w-8 h-8 ${pkg.isPopular ? 'text-secondary' : 'text-primary'}`} />
-                  </div>
-                  
-                  <h3 className="font-playfair text-2xl font-bold text-foreground mb-2">
-                    {pkg.name}
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {pkg.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <span className="text-3xl font-bold text-foreground">
-                      {pkg.price}
-                    </span>
-                    <span className="text-sm text-muted-foreground line-through">
-                      {pkg.originalPrice}
-                    </span>
-                  </div>
-                </div>
-                
-                <ul className="space-y-3 mb-8">
-                  {pkg.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start gap-3">
-                      <Check className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                        pkg.isPopular ? 'text-secondary' : 'text-primary'
-                      }`} />
-                      <span className="text-foreground font-inter text-sm leading-relaxed">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <Button 
-                  onClick={scrollToForm}
-                  className={`w-full ${
-                    pkg.isPopular 
-                      ? 'bg-secondary hover:bg-secondary-light text-secondary-foreground' 
-                      : 'bg-primary hover:bg-primary-dark text-primary-foreground'
-                  }`}
-                  size="lg"
-                >
-                  Chọn gói {pkg.name}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Left Half - Package Selection */}
+            <div>
+              <h3 className="text-2xl font-bold text-center mb-6">
+                Chọn Gói Luận Giải
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {packages.map((pkg) => (
+                  <div
+                    key={pkg.id}
+                    className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                      selectedPackage === pkg.id
+                        ? "border-green-500 bg-green-50 shadow-lg"
+                        : "border-gray-200 hover:border-gray-300 hover:shadow-md"
+                    } ${pkg.isPopular ? "ring-2 ring-yellow-400" : ""}`}
+                    onClick={() => setSelectedPackage(pkg.id)}
+                  >
+                    {pkg.isPopular && (
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                        <div className="bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-semibold">
+                          Phổ biến
+                        </div>
+                      </div>
+                    )}
 
-        <div className="text-center">
-          <Button 
-            onClick={scrollToForm}
-            size="lg"
-            className="bg-gradient-hero text-white font-semibold px-12 py-4 text-lg shadow-glow hover:shadow-strong transition-all duration-300"
-          >
-            Đặt Luận Giải Ngay – Chỉ từ 299k
-          </Button>
+                    <div className="flex items-center mb-3">
+                      <div
+                        className={`w-4 h-4 rounded-full border-2 mr-3 ${
+                          selectedPackage === pkg.id
+                            ? "border-green-500 bg-green-500"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {selectedPackage === pkg.id && (
+                          <div className="w-2 h-2 bg-white rounded-full mx-auto mt-0.5"></div>
+                        )}
+                      </div>
+                      <h4 className="font-bold text-base">{pkg.name}</h4>
+                    </div>
+
+                    <div className="text-center mb-3">
+                      <div className="text-2xl font-bold text-green-600">
+                        {pkg.price}
+                      </div>
+                      {pkg.originalPrice && (
+                        <div className="text-sm text-gray-500 line-through">
+                          {pkg.originalPrice}
+                        </div>
+                      )}
+                    </div>
+
+                    <p className="text-xs text-gray-600 text-center">
+                      {pkg.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Half - Features Comparison */}
+            <div>
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
+                <div className="bg-gray-50 px-4 py-3 border-b">
+                  <h3 className="text-xl font-bold text-center">
+                    Tính năng gói "
+                    {packages.find((p) => p.id === selectedPackage)?.name}"
+                  </h3>
+                </div>
+
+                <div className="p-4 max-h-96 overflow-y-auto">
+                  <div className="space-y-3">
+                    {allFeatures.map((feature, index) => {
+                      const selectedPkg = packages.find(
+                        (p) => p.id === selectedPackage
+                      );
+                      const hasFeature = selectedPkg?.features[feature];
+
+                      return (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0"
+                        >
+                          <span className="text-sm text-gray-700">
+                            {feature}
+                          </span>
+                          <div className="flex items-center">
+                            {hasFeature ? (
+                              <Check className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <X className="w-5 h-5 text-red-500" />
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Button */}
+          <div className="text-center">
+            <Button
+              onClick={scrollToForm}
+              className="bg-green-600 hover:bg-green-700 text-white px-12 py-4 text-lg font-semibold rounded-lg"
+            >
+              Chọn gói {packages.find((p) => p.id === selectedPackage)?.name} -{" "}
+              {packages.find((p) => p.id === selectedPackage)?.price}
+            </Button>
+          </div>
+
+          {/* Countdown Timer */}
+          <div className="bg-gray-100 rounded-lg p-6 mt-8">
+            <p className="text-center text-sm text-gray-600 mb-4">
+              ƯU ĐÃI CÓ HẠN KẾT THÚC VÀO NGÀY 24 THÁNG 8
+            </p>
+            <div className="flex justify-center space-x-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold">
+                  {String(timeLeft.days).padStart(2, "0")}
+                </div>
+                <div className="text-sm text-gray-500">NGÀY</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold">
+                  {String(timeLeft.hours).padStart(2, "0")}
+                </div>
+                <div className="text-sm text-gray-500">GIỜ</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold">
+                  {String(timeLeft.minutes).padStart(2, "0")}
+                </div>
+                <div className="text-sm text-gray-500">PHÚT</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold">
+                  {String(timeLeft.seconds).padStart(2, "0")}
+                </div>
+                <div className="text-sm text-gray-500">GIÂY</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

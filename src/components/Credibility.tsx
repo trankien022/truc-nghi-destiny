@@ -8,44 +8,44 @@ const Credibility = () => {
       icon: Award,
       number: "{{so_nam_hoc}}",
       label: "Năm nghiên cứu Tử Vi/Bát Tự",
-      description: "Từ cơ bản đến chuyên sâu"
+      description: "Từ cơ bản đến chuyên sâu",
     },
     {
       icon: Users,
       number: "{{tong_la_so_da_doc}}",
       label: "Lá số đã được luận giải",
-      description: "Kinh nghiệm thực tế phong phú"
+      description: "Kinh nghiệm thực tế phong phú",
     },
     {
       icon: TrendingUp,
       number: "{{ti_le_phan_hoi_tich_cuc}}%",
       label: "Phản hồi tích cực",
-      description: "Khách hàng hài lòng và tin tưởng"
-    }
+      description: "Khách hàng hài lòng và tin tưởng",
+    },
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section id="credibility" className="py-20 bg-muted scroll-mt-24">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-4">
             Về <span className="text-primary">Trúc Nghi</span>
           </h2>
           <p className="text-muted-foreground font-inter text-lg max-w-2xl mx-auto leading-relaxed">
-            Hành trình nghiên cứu và thực hành Tử Vi/Bát Tự với tinh thần khoa học, 
-            tâm huyết và trách nhiệm cao
+            Hành trình nghiên cứu và thực hành Tử Vi/Bát Tự với tinh thần khoa
+            học, tâm huyết và trách nhiệm cao
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div className="text-center lg:text-left animate-scale-in">
-            <img 
-              src={masterImage} 
-              alt="Thầy Trúc Nghi - Chuyên gia Tử Vi Bát Tự" 
+            <img
+              src={masterImage}
+              alt="Thầy Trúc Nghi - Chuyên gia Tử Vi Bát Tự"
               className="w-80 h-96 object-cover rounded-2xl shadow-strong mx-auto lg:mx-0 mb-6"
             />
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
               <ExternalLink className="w-4 h-4 mr-2" />
@@ -59,18 +59,19 @@ const Credibility = () => {
                 Kinh nghiệm & Thành tựu
               </h3>
               <p className="text-muted-foreground font-inter leading-relaxed mb-6">
-                Với nhiều năm nghiên cứu sâu về các hệ thống Tử Vi, Bát Tự và Kinh Dịch, 
-                Trúc Nghi đã phát triển phương pháp luận giải độc đáo, kết hợp truyền thống 
-                và tư duy hiện đại để mang lại giá trị thực tiễn cho khách hàng.
+                Với nhiều năm nghiên cứu sâu về các hệ thống Tử Vi, Bát Tự và
+                Kinh Dịch, Trúc Nghi đã phát triển phương pháp luận giải độc
+                đáo, kết hợp truyền thống và tư duy hiện đại để mang lại giá trị
+                thực tiễn cho khách hàng.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {stats.map((stat, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="text-center p-6 bg-gradient-card rounded-xl shadow-soft animate-slide-up"
-                  style={{animationDelay: `${index * 0.2}s`}}
+                  style={{ animationDelay: `${index * 0.2}s` }}
                 >
                   <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <div className="font-playfair text-2xl font-bold text-foreground mb-1">

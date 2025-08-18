@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
 */
 
@@ -56,10 +56,26 @@ All colors MUST be HSL.
     --gold-foreground: 0 0% 100%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(231 48% 48%), hsl(231 48% 35%));
-    --gradient-secondary: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 45%));
-    --gradient-hero: linear-gradient(135deg, hsl(231 48% 48%) 0%, hsl(158 64% 52%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(220 14% 98%) 100%);
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(231 48% 48%),
+      hsl(231 48% 35%)
+    );
+    --gradient-secondary: linear-gradient(
+      135deg,
+      hsl(158 64% 52%),
+      hsl(158 64% 45%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(231 48% 48%) 0%,
+      hsl(158 64% 52%) 100%
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(0 0% 100%) 0%,
+      hsl(220 14% 98%) 100%
+    );
 
     /* Shadows */
     --shadow-soft: 0 2px 8px -2px hsl(231 48% 48% / 0.1);
@@ -133,4 +149,9 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Smooth scroll for anchor navigation */
+html {
+  scroll-behavior: smooth;
 }

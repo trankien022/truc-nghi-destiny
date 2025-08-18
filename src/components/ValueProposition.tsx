@@ -1,4 +1,11 @@
-import { TrendingUp, DollarSign, Heart, Shield, BookOpen, ExternalLink } from "lucide-react";
+import {
+  TrendingUp,
+  DollarSign,
+  Heart,
+  Shield,
+  BookOpen,
+  ExternalLink,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -9,36 +16,36 @@ const ValueProposition = () => {
       title: "Đại vận & Tiểu vận",
       description: "Timeline 10 năm/1 năm chi tiết",
       benefit: "Lập kế hoạch sự nghiệp, chọn thời điểm hành động tối ưu",
-      example: "Biết năm nào thuận lợi để khởi nghiệp, đầu tư"
+      example: "Biết năm nào thuận lợi để khởi nghiệp, đầu tư",
     },
     {
       icon: DollarSign,
-      title: "Tài lộc – Quan lộ", 
+      title: "Tài lộc – Quan lộ",
       description: "Nguồn thu, thời cơ đầu tư, rủi ro",
       benefit: "Quản trị rủi ro, tránh 'đu đỉnh', nắm bắt cơ hội",
-      example: "Thời điểm nào nên mở rộng kinh doanh, khi nào nên thận trọng"
+      example: "Thời điểm nào nên mở rộng kinh doanh, khi nào nên thận trọng",
     },
     {
       icon: Heart,
       title: "Tình cảm – Gia đạo",
       description: "Chu kỳ hợp/kị, thời điểm dễ xung đột",
       benefit: "Cách hoá giải, giữ nền hòa khí trong gia đình",
-      example: "Hiểu partner, tránh tranh cãi vào thời điểm nhạy cảm"
+      example: "Hiểu partner, tránh tranh cãi vào thời điểm nhạy cảm",
     },
     {
       icon: Shield,
       title: "Sức khỏe – Tai ách",
       description: "Gợi ý phòng nguy theo chu kỳ",
       benefit: "Ưu tiên khám sức khỏe, phòng tránh theo mốc vận",
-      example: "Giai đoạn nào cần chú ý tim mạch, tiêu hóa..."
+      example: "Giai đoạn nào cần chú ý tim mạch, tiêu hóa...",
     },
     {
       icon: BookOpen,
       title: "Phong cách hành xử",
       description: "Theo mệnh cục và giai đoạn vận",
       benefit: "Việc nên làm – việc nên tránh rõ ràng",
-      example: "Cách giao tiếp, làm việc phù hợp với bản mệnh"
-    }
+      example: "Cách giao tiếp, làm việc phù hợp với bản mệnh",
+    },
   ];
 
   const openModal = (title: string) => {
@@ -47,23 +54,27 @@ const ValueProposition = () => {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section
+      id="value-proposition"
+      className="py-20 bg-background scroll-mt-24"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-6">
             Bạn nhận được gì trong bản luận giải?
           </h2>
           <p className="text-muted-foreground font-inter text-lg max-w-3xl mx-auto leading-relaxed">
-            Hệ thống phân tích toàn diện 80 năm vận hạn, từ lý thuyết đến ứng dụng thực tế
+            Hệ thống phân tích toàn diện 80 năm vận hạn, từ lý thuyết đến ứng
+            dụng thực tế
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {values.map((value, index) => (
-            <Card 
-              key={index} 
+            <Card
+              key={index}
               className="bg-gradient-card border-0 shadow-medium hover:shadow-strong transition-all duration-300 animate-slide-up group"
-              style={{animationDelay: `${index * 0.1}s`}}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-4">
@@ -74,11 +85,11 @@ const ValueProposition = () => {
                     {value.title}
                   </h3>
                 </div>
-                
+
                 <p className="text-muted-foreground font-inter mb-4 leading-relaxed">
                   {value.description}
                 </p>
-                
+
                 <div className="bg-secondary/10 rounded-lg p-4 mb-4">
                   <h4 className="font-semibold text-secondary text-sm mb-2 uppercase tracking-wide">
                     Lợi ích ứng dụng
@@ -87,7 +98,7 @@ const ValueProposition = () => {
                     {value.benefit}
                   </p>
                 </div>
-                
+
                 <div className="bg-primary/5 rounded-lg p-4 mb-6">
                   <h4 className="font-semibold text-primary text-sm mb-2 uppercase tracking-wide">
                     Ví dụ cụ thể
@@ -96,8 +107,8 @@ const ValueProposition = () => {
                     {value.example}
                   </p>
                 </div>
-                
-                <Button 
+
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={() => openModal(value.title)}

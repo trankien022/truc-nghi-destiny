@@ -6,31 +6,32 @@ const Process = () => {
       icon: FileText,
       title: "Điền form thông tin",
       description: "Họ tên, Email, SĐT, Ngày/Giờ sinh, Nơi sinh",
-      details: "Thông tin chính xác giúp luận giải chính xác hơn"
+      details: "Thông tin chính xác giúp luận giải chính xác hơn",
     },
     {
-      icon: CreditCard, 
+      icon: CreditCard,
       title: "Thanh toán nhanh",
       description: "QR Code hiển thị ngay, chuyển khoản đơn giản",
-      details: "Nhập SĐT/Email khi chuyển khoản để nhận kết quả"
+      details: "Nhập SĐT/Email khi chuyển khoản để nhận kết quả",
     },
     {
       icon: Mail,
       title: "Nhận luận giải",
       description: "Email xác nhận tự động + file PDF trong {{SLA_giao_file}}",
-      details: "File PDF chi tiết, dễ đọc và lưu trữ"
-    }
+      details: "File PDF chi tiết, dễ đọc và lưu trữ",
+    },
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section id="process" className="py-20 bg-muted scroll-mt-24">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-foreground mb-6">
             Quy trình 3 bước đơn giản
           </h2>
           <p className="text-muted-foreground font-inter text-lg max-w-2xl mx-auto leading-relaxed">
-            Nhanh chóng, thuận tiện, minh bạch - nhận luận giải trong vòng 24 giờ
+            Nhanh chóng, thuận tiện, minh bạch - nhận luận giải trong vòng 24
+            giờ
           </p>
         </div>
 
@@ -38,7 +39,10 @@ const Process = () => {
           <div className="grid md:grid-cols-3 gap-8 md:gap-4">
             {steps.map((step, index) => (
               <div key={index} className="relative">
-                <div className="text-center animate-slide-up" style={{animationDelay: `${index * 0.2}s`}}>
+                <div
+                  className="text-center animate-slide-up"
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
                   <div className="relative inline-block mb-6">
                     <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow">
                       <step.icon className="w-10 h-10 text-white" />
@@ -51,11 +55,11 @@ const Process = () => {
                   <h3 className="font-playfair text-xl font-semibold text-foreground mb-3">
                     {step.title}
                   </h3>
-                  
+
                   <p className="text-foreground font-inter mb-3 leading-relaxed">
                     {step.description}
                   </p>
-                  
+
                   <p className="text-muted-foreground font-inter text-sm leading-relaxed">
                     {step.details}
                   </p>
