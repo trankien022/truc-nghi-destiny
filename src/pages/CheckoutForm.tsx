@@ -86,7 +86,8 @@ const CheckoutForm: React.FC = () => {
 
   const testConnection = async () => {
     try {
-      const response = await fetch("http://localhost:3030/api/test-cors", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3030";
+      const response = await fetch(`${apiUrl}/api/test-cors`, {
         method: "GET",
         credentials: "include",
       });
@@ -105,17 +106,15 @@ const CheckoutForm: React.FC = () => {
     console.log("Sending request to PayOS with data:", data);
 
     try {
-      const response = await fetch(
-        "http://localhost:3030/api/payments/payos/create",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(data),
-        }
-      );
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3030";
+      const response = await fetch(`${apiUrl}/api/payments/payos/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

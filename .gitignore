@@ -25,6 +25,8 @@ dist-ssr
 
 # Environment variables
 .env
+.env.local
+.env.production
 
 # Google Sheets Credentials
 config/google-credentials.json
