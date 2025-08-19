@@ -103,24 +103,6 @@ const CheckoutForm: React.FC = () => {
     return "http://localhost:3030";
   };
 
-  const testConnection = async () => {
-    try {
-      const apiUrl = getApiUrl();
-      console.log("🔗 Using API URL:", apiUrl);
-
-      const response = await fetch(`${apiUrl}/api/test-cors`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const result = await response.json();
-      console.log("Connection test result:", result);
-      toast.success("Kết nối server thành công!");
-    } catch (error) {
-      console.error("Connection test failed:", error);
-      toast.error("Không thể kết nối đến server");
-    }
-  };
-
   const onSubmit = async (data: CheckoutFormData) => {
     setIsLoading(true);
 
@@ -329,15 +311,6 @@ const CheckoutForm: React.FC = () => {
                   </CardContent>
                 </Card>
               )}
-
-              {/* Test Connection Button */}
-              <Button
-                type="button"
-                onClick={testConnection}
-                className="w-full py-2 mb-3 text-sm font-medium bg-gray-500 hover:bg-gray-600"
-              >
-                Test kết nối server
-              </Button>
 
               {/* Submit Button */}
               <Button
