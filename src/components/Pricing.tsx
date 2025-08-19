@@ -2,6 +2,7 @@ import { Check, Star, X, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   useScrollAnimation,
   useStaggeredAnimation,
@@ -9,7 +10,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const Pricing = () => {
-  const [showAllPackages, setShowAllPackages] = useState(false);
+  const navigate = useNavigate();
+  const [showAllPackages, setShowAllPackages] = useState(true);
   const [timeLeft, setTimeLeft] = useState({
     days: 5,
     hours: 22,
@@ -167,11 +169,8 @@ const Pricing = () => {
     ? packages
     : packages.filter((pkg) => pkg.priority <= 4);
 
-  const scrollToForm = () => {
-    const form = document.getElementById("order-form");
-    if (form) {
-      form.scrollIntoView({ behavior: "smooth" });
-    }
+  const goToCheckout = () => {
+    navigate("/checkout");
   };
 
   const togglePackages = () => {
@@ -300,7 +299,7 @@ const Pricing = () => {
 
                   {/* CTA Button */}
                   <Button
-                    onClick={scrollToForm}
+                    onClick={goToCheckout}
                     className={cn(
                       "w-full font-semibold py-3 rounded-lg",
                       "transition-all duration-200 ease-out",
@@ -342,7 +341,7 @@ const Pricing = () => {
               ) : (
                 <>
                   <ChevronDown className="w-4 h-4 mr-2" />
-                  Xem thêm 2 gói
+                  Hiển thị toàn bộ gói
                 </>
               )}
             </Button>

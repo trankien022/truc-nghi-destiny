@@ -1,5 +1,6 @@
 ---
-type: "manual"
+type: "always_apply"
+description: "Example description"
 ---
 
 ## Whenever you need a React component
