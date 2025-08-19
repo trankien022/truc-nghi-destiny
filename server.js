@@ -45,6 +45,14 @@ const PACKAGE_PRICES = {
   PREMIUM: 799000,
 };
 
+// Package name mapping for display
+const PACKAGE_NAMES = {
+  TEST: "Test",
+  BASIC: "Cơ Bản",
+  PRO: "Chuyên Nghiệp",
+  PREMIUM: "Cao Cấp",
+};
+
 // Route to create PayOS payment link
 app.post("/api/payments/payos/create", async (req, res) => {
   try {
@@ -74,17 +82,18 @@ app.post("/api/payments/payos/create", async (req, res) => {
       .padStart(2, "0");
     const orderCode = parseInt(last6Digits + randomDigits);
 
-    // Get package price
+    // Get package price and name
     const amount = PACKAGE_PRICES[pkg];
+    const packageName = PACKAGE_NAMES[pkg] || pkg;
 
     // Create payment body
     const body = {
       orderCode: orderCode,
       amount: amount,
-      description: `${pkg}`,
+      description: `${fullName} - Gói ${packageName}`,
       items: [
         {
-          name: `${pkg}`,
+          name: `Luận giải tử vi - Gói ${packageName} cho ${fullName}`,
           quantity: 1,
           price: amount,
         },
