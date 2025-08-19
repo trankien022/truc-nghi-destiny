@@ -6,19 +6,19 @@ const Credibility = () => {
   const stats = [
     {
       icon: Award,
-      number: "{{so_nam_hoc}}",
+      number: "6",
       label: "Năm nghiên cứu Tử Vi/Bát Tự",
       description: "Từ cơ bản đến chuyên sâu",
     },
     {
       icon: Users,
-      number: "{{tong_la_so_da_doc}}",
+      number: "500+",
       label: "Lá số đã được luận giải",
       description: "Kinh nghiệm thực tế phong phú",
     },
     {
       icon: TrendingUp,
-      number: "{{ti_le_phan_hoi_tich_cuc}}%",
+      number: "98%",
       label: "Phản hồi tích cực",
       description: "Khách hàng hài lòng và tin tưởng",
     },
@@ -64,6 +64,32 @@ const Credibility = () => {
                 đáo, kết hợp truyền thống và tư duy hiện đại để mang lại giá trị
                 thực tiễn cho khách hàng.
               </p>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-3"></div>
+                  <p className="text-foreground font-inter leading-relaxed">
+                    Một người luận giải Huyền học chân chính sẽ đóng vai trò như
+                    người đồng hành cùng Quý khách hàng của mình xuyên suốt hành
+                    trình, giải đáp mọi thắc mắc sau khi luận giải chứ không chỉ
+                    lý thuyết suông.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-3"></div>
+                  <p className="text-foreground font-inter leading-relaxed">
+                    6 năm Kinh nghiệm trong lĩnh vực Huyền học/Nhân tướng
+                    học/Tâm lý học
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-3"></div>
+                  <p className="text-foreground font-inter leading-relaxed">
+                    Luận giải 500+ lá số từ nhiều khách hàng khác nhau, nhiều độ
+                    tuổi khác nhau
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AudienceFit from "@/components/AudienceFit";
 import PainDesire from "@/components/PainDesire";
+import LargeQuote from "@/components/LargeQuote";
 import Credibility from "@/components/Credibility";
 import ValueProposition from "@/components/ValueProposition";
 
@@ -20,6 +21,7 @@ const Index = () => {
       <Hero />
       <AudienceFit />
       <PainDesire />
+      <LargeQuote />
       <Credibility />
       <ValueProposition />
       <Pricing />

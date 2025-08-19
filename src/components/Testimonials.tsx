@@ -1,5 +1,10 @@
 import { Star } from "lucide-react";
 import { useState } from "react";
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Testimonials = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -117,6 +122,17 @@ const Testimonials = () => {
     return true;
   });
 
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 100,
+  });
+
+  const { containerRef: testimonialsRef, visibleItems: testimonialsVisible } =
+    useStaggeredAnimation(filteredTestimonials.length, {
+      threshold: 0.2,
+      staggerDelay: 150,
+    });
+
   return (
     <section id="testimonials" className="py-20 bg-background scroll-mt-24">
       <div className="container mx-auto px-4 max-w-5xl">
@@ -179,11 +195,18 @@ const Testimonials = () => {
         </div>
 
         {/* Danh sách đánh giá */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div ref={testimonialsRef} className="grid md:grid-cols-3 gap-6">
           {filteredTestimonials.slice(0, 6).map((t, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-2xl p-6 border shadow-sm"
+              className={cn(
+                "bg-white rounded-2xl p-6 border shadow-sm",
+                "transition-all duration-300 ease-out transform-gpu",
+                "hover:scale-[1.02] hover:shadow-xl hover:border-primary/20",
+                testimonialsVisible[idx]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              )}
             >
               <div className="flex items-start gap-3 mb-3">
                 <div

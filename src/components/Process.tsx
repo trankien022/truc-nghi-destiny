@@ -1,4 +1,9 @@
 import { FileText, CreditCard, Mail, ArrowRight } from "lucide-react";
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Process = () => {
   const steps = [
@@ -17,10 +22,18 @@ const Process = () => {
     {
       icon: Mail,
       title: "Nhận luận giải",
-      description: "Email xác nhận tự động + file PDF trong {{SLA_giao_file}}",
+      description: "Email xác nhận tự động + file PDF trong 24 giờ",
       details: "File PDF chi tiết, dễ đọc và lưu trữ",
     },
   ];
+
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 100,
+  });
+
+  const { containerRef: stepsRef, visibleItems: stepsVisible } =
+    useStaggeredAnimation(steps.length, { threshold: 0.2, staggerDelay: 200 });
 
   return (
     <section id="process" className="py-20 bg-muted scroll-mt-24">
@@ -36,16 +49,32 @@ const Process = () => {
         </div>
 
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 md:gap-4">
+          <div ref={stepsRef} className="grid md:grid-cols-3 gap-8 md:gap-4">
             {steps.map((step, index) => (
               <div key={index} className="relative">
                 <div
-                  className="text-center animate-slide-up"
-                  style={{ animationDelay: `${index * 0.2}s` }}
+                  className={cn(
+                    "text-center",
+                    "transition-all duration-600 ease-out-expo",
+                    stepsVisible[index]
+                      ? "opacity-100 translate-y-0 scale-100"
+                      : "opacity-0 translate-y-8 scale-95"
+                  )}
                 >
                   <div className="relative inline-block mb-6">
-                    <div className="w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow">
-                      <step.icon className="w-10 h-10 text-white" />
+                    <div
+                      className={cn(
+                        "w-20 h-20 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow",
+                        "transition-all duration-300 ease-out hover:scale-110 hover:shadow-xl",
+                        "hover:rotate-3 transform-gpu"
+                      )}
+                    >
+                      <step.icon
+                        className={cn(
+                          "w-10 h-10 text-white",
+                          "transition-all duration-200 ease-out hover:scale-110"
+                        )}
+                      />
                     </div>
                     <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-sm">
                       {index + 1}

@@ -1,53 +1,137 @@
 import { Button } from "@/components/ui/button";
 import { Star, Shield, FileText, Users } from "lucide-react";
 import heroImage from "@/assets/hero-astrology.jpg";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const Hero = () => {
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
+
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 200,
+  });
+
+  const { elementRef: subtitleRef, isVisible: subtitleVisible } =
+    useScrollAnimation({
+      threshold: 0.3,
+      delay: 400,
+    });
+
+  const { elementRef: ctaRef, isVisible: ctaVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 600,
+  });
+
   const scrollToForm = () => {
-    const form = document.getElementById('order-form');
+    const form = document.getElementById("order-form");
     if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
+      form.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const scrollToSample = () => {
-    const sample = document.getElementById('sample-section');
+    const sample = document.getElementById("sample-section");
     if (sample) {
-      sample.scrollIntoView({ behavior: 'smooth' });
+      sample.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden">
+    <section
+      ref={heroRef}
+      className="relative min-h-screen flex items-center bg-gradient-hero overflow-hidden"
+    >
       <div className="absolute inset-0 bg-black/20"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-white animate-fade-in">
-            <h1 className="font-playfair text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Bản Luận Giải Tử Vi/Bát Tự <span className="text-secondary">Trúc Nghi</span>
+          <div className="text-white">
+            <h1
+              ref={titleRef}
+              className={cn(
+                "font-playfair text-4xl md:text-6xl font-bold leading-tight mb-6",
+                "transition-all duration-800 ease-out-expo",
+                titleVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-8 scale-95"
+              )}
+            >
+              Liệu bạn có đang tìm kiếm sự rõ ràng?
             </h1>
-            <div className="text-xl md:text-2xl font-medium mb-4">
-              Tường Tận 80 Năm Vận Hạn • <span className="text-secondary font-bold">Chỉ từ 299k</span>
-            </div>
-            
-            <p className="text-lg md:text-xl font-inter mb-8 opacity-90 leading-relaxed">
-              Hiểu mệnh – rõ vận – chủ động thời cơ: tài lộc, sự nghiệp, tình cảm, sức khỏe.
-            </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button 
+            <ul
+              ref={subtitleRef}
+              className={cn(
+                "space-y-3 text-lg md:text-xl font-inter mb-8 opacity-90 leading-relaxed list-disc list-inside",
+                "transition-all duration-600 ease-out-expo",
+                subtitleVisible
+                  ? "opacity-90 translate-y-0"
+                  : "opacity-0 translate-y-6"
+              )}
+            >
+              <li
+                className={cn(
+                  "transition-all duration-600 ease-out-expo delay-100",
+                  subtitleVisible
+                    ? "opacity-90 translate-x-0"
+                    : "opacity-0 -translate-x-4"
+                )}
+              >
+                Muốn nắm rõ điều gì sắp xảy ra trong Công danh/Tình cảm/Gia đạo
+                để dễ bề tuỳ cơ ứng biến
+              </li>
+              <li
+                className={cn(
+                  "transition-all duration-600 ease-out-expo delay-200",
+                  subtitleVisible
+                    ? "opacity-90 translate-x-0"
+                    : "opacity-0 -translate-x-4"
+                )}
+              >
+                Mong cầu một con đường sáng tỏ cho 10–20 năm tới thay vì đau đáu
+                trong lòng câu hỏi ‘Tại sao mình sống tốt nhưng vẫn gặp chuyện
+                không may, còn người khác sống tệ thì lại hạnh phúc hơn mình?’
+              </li>
+            </ul>
+
+            <div
+              ref={ctaRef}
+              className={cn(
+                "flex flex-col sm:flex-row gap-4 mb-8",
+                "transition-all duration-600 ease-out-expo",
+                ctaVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-4 scale-95"
+              )}
+            >
+              <Button
                 onClick={scrollToForm}
-                size="lg" 
-                className="bg-secondary hover:bg-secondary-light text-secondary-foreground font-semibold px-8 py-4 text-lg shadow-strong"
+                size="lg"
+                className={cn(
+                  "bg-secondary text-secondary-foreground font-semibold px-8 py-4 text-lg shadow-strong",
+                  "transition-all duration-300 ease-out",
+                  "hover:bg-secondary-light hover:scale-105 hover:shadow-xl hover:shadow-secondary/25",
+                  "hover:-translate-y-1",
+                  "transform-gpu"
+                )}
               >
                 Nhận Luận Giải Cá Nhân
               </Button>
-              <Button 
+              <Button
                 onClick={scrollToSample}
-                variant="outline" 
+                variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-4 text-lg"
+                className={cn(
+                  "border-white text-white font-semibold px-8 py-4 text-lg",
+                  "transition-all duration-300 ease-out",
+                  "hover:bg-white hover:text-primary hover:scale-105",
+                  "hover:-translate-y-1 hover:shadow-lg",
+                  "transform-gpu"
+                )}
               >
                 Xem mẫu bản luận
               </Button>
@@ -71,15 +155,15 @@ const Hero = () => {
 
           <div className="relative animate-scale-in">
             <div className="relative z-10">
-              <img 
-                src={heroImage} 
+              <img
+                src={heroImage}
                 alt="Tử Vi Trúc Nghi - Luận giải tử vi chuyên nghiệp"
                 className="w-full h-auto rounded-2xl shadow-strong"
                 loading="eager"
               />
             </div>
             <div className="absolute -top-4 -left-4 w-16 h-16 bg-secondary rounded-full opacity-20 animate-float"></div>
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary rounded-full opacity-20 animate-float" style={{animationDelay: '1s'}}></div>
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-primary rounded-full opacity-20 animate-float delay-1000"></div>
           </div>
         </div>
       </div>

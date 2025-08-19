@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
+# Trúc Nghi Destiny — Tech Stack & Hướng dẫn ngắn
 
-## Project info
+Dự án front-end xây dựng bằng Vite + React + TypeScript, sử dụng hệ sinh thái shadcn-ui (Radix UI) và Tailwind CSS. Dưới đây là mô tả các công nghệ chính đang dùng trong dự án.
 
-**URL**: https://lovable.dev/projects/9422df14-1417-4f9e-a320-39bc338f6439
+---
 
-## How can I edit this code?
+## Công nghệ cốt lõi
 
-There are several ways of editing your application.
+- Vite (bundler/dev server)
+- React 18
+- TypeScript 5
+- SWC (thông qua `@vitejs/plugin-react-swc`) để build/transform nhanh
 
-**Use Lovable**
+## UI, Styling & Theme
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9422df14-1417-4f9e-a320-39bc338f6439) and start prompting.
+- Tailwind CSS (+ PostCSS, Autoprefixer)
+- tailwindcss-animate: tiện ích animation cho Tailwind
+- @tailwindcss/typography: style nội dung rich text
+- shadcn-ui (dựa trên Radix UI) với các package Radix:
+  - @radix-ui/react-accordion, alert-dialog, aspect-ratio, avatar, checkbox,
+    collapsible, context-menu, dialog, dropdown-menu, hover-card, label,
+    menubar, navigation-menu, popover, progress, radio-group, scroll-area,
+    select, separator, slider, slot, switch, tabs, toast, toggle, toggle-group,
+    tooltip
+- lucide-react: bộ icon
+- next-themes: đổi theme (light/dark)
 
-Changes made via Lovable will be committed automatically to this repo.
+## Routing, Data & State
 
-**Use your preferred IDE**
+- react-router-dom: điều hướng client-side
+- @tanstack/react-query: quản lý server state, caching, revalidation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Form, Validation & UX
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- react-hook-form: quản lý form hiệu quả
+- @hookform/resolvers + zod: validate schema an toàn
+- sonner: toast notification
+- cmdk: command palette
+- vaul: drawer/sheet
+- input-otp: input OTP
+- react-resizable-panels: panel kéo giãn
 
-Follow these steps:
+## Date/Time & Visualization
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- date-fns: xử lý ngày giờ
+- react-day-picker: chọn ngày
+- recharts: vẽ biểu đồ
+- embla-carousel-react: carousel/slider
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Chất lượng mã & DX
 
-# Step 3: Install the necessary dependencies.
-npm i
+- ESLint 9 + eslint-plugin-react-hooks + eslint-plugin-react-refresh
+- typescript-eslint
+- Globals (định nghĩa global env cho ESLint)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## Cấu hình TypeScript (trích yếu)
+
+- Alias đường dẫn: `@/*` → `./src/*` (tsconfig.json)
+- Một số cờ an toàn đang được nới lỏng (skipLibCheck, noImplicitAny=false, strictNullChecks=false).
+  - Có thể siết chặt dần khi cần nâng chất lượng type.
+
+## Scripts quan trọng
+
+- `npm run dev` — chạy server phát triển (Vite)
+- `npm run build` — build production
+- `npm run build:dev` — build ở chế độ development
+- `npm run preview` — chạy bản build để xem thử
+- `npm run lint` — chạy ESLint
+
+## Cấu trúc thư mục (rút gọn)
+
+- `src/`
+  - `assets/` — tài nguyên tĩnh
+  - `components/` — các component UI (shadcn + tuỳ biến)
+  - `hooks/` — custom hooks
+  - `lib/` — hàm tiện ích, cấu hình
+  - `pages/` — các trang (phối hợp với react-router)
+  - `main.tsx`, `App.tsx` — điểm vào ứng dụng
+- `public/` — tài nguyên public (favicon, robots.txt, …)
+- `index.html` — template HTML cho Vite
+- `tailwind.config.ts`, `postcss.config.js` — cấu hình Tailwind & PostCSS
+- `vite.config.ts` — cấu hình Vite
+
+## Cách chạy nhanh
+
+```bash
+# Cài phụ thuộc (khuyến nghị dùng npm)
+npm ci   # hoặc: npm install
+
+# Chạy dev
 npm run dev
+
+# Kiểm tra lint
+npm run lint
+
+# Build và preview
+npm run build
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## Ghi chú
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/9422df14-1417-4f9e-a320-39bc338f6439) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Repo có `bun.lockb` (Bun). Nếu bạn dùng Bun, có thể thay các lệnh npm bằng Bun (`bun install`, `bun dev`, …). Mặc định README này minh họa bằng npm để thống nhất với `package-lock.json`.
+- Nếu muốn thiết lập test tự động (Vitest + Testing Library) mình có thể bổ sung theo yêu cầu.

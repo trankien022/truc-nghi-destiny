@@ -3,39 +3,58 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CalendarDays, MapPin, Phone, Mail, CreditCard } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const OrderForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    birthDate: '',
-    birthTime: '',
-    birthPlace: '',
-    package: ''
+    fullName: "",
+    email: "",
+    phone: "",
+    birthDate: "",
+    birthTime: "",
+    birthPlace: "",
+    package: "",
   });
   const [showPayment, setShowPayment] = useState(false);
 
   const packages = [
-    { value: 'basic', label: 'Basic - 299k', price: '299.000đ' },
-    { value: 'pro', label: 'Pro - 499k', price: '499.000đ' },
-    { value: 'premium', label: 'Premium - 799k', price: '799.000đ' }
+    { value: "basic", label: "Basic - 299k", price: "299.000đ" },
+    { value: "pro", label: "Pro - 499k", price: "499.000đ" },
+    { value: "premium", label: "Premium - 799k", price: "799.000đ" },
   ];
+
+  const { elementRef: formRef, isVisible: formVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 100,
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
-    if (!formData.fullName || !formData.email || !formData.phone || 
-        !formData.birthDate || !formData.birthPlace || !formData.package) {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.birthDate ||
+      !formData.birthPlace ||
+      !formData.package
+    ) {
       toast({
         title: "Vui lòng điền đầy đủ thông tin",
         description: "Tất cả các trường có dấu * là bắt buộc",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -50,23 +69,26 @@ const OrderForm = () => {
   const handlePaymentComplete = () => {
     toast({
       title: "Thanh toán thành công!",
-      description: "Kết quả đang được xử lý. Bạn sẽ nhận email xác nhận trong vài phút.",
+      description:
+        "Kết quả đang được xử lý. Bạn sẽ nhận email xác nhận trong vài phút.",
     });
-    
+
     // Reset form
     setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      birthDate: '',
-      birthTime: '',
-      birthPlace: '',
-      package: ''
+      fullName: "",
+      email: "",
+      phone: "",
+      birthDate: "",
+      birthTime: "",
+      birthPlace: "",
+      package: "",
     });
     setShowPayment(false);
   };
 
-  const selectedPackage = packages.find(pkg => pkg.value === formData.package);
+  const selectedPackage = packages.find(
+    (pkg) => pkg.value === formData.package
+  );
 
   return (
     <section className="py-20 bg-muted" id="order-form">
@@ -82,7 +104,16 @@ const OrderForm = () => {
 
         <div className="max-w-4xl mx-auto">
           {!showPayment ? (
-            <Card className="bg-gradient-card border-0 shadow-strong animate-scale-in">
+            <Card
+              ref={formRef}
+              className={cn(
+                "bg-gradient-card border-0 shadow-strong",
+                "transition-all duration-600 ease-out-expo",
+                formVisible
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-8 scale-95"
+              )}
+            >
               <CardHeader className="text-center pb-6">
                 <CardTitle className="font-playfair text-2xl text-foreground">
                   Thông tin đặt hàng
@@ -92,23 +123,39 @@ const OrderForm = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="fullName" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="fullName"
+                        className="text-foreground font-medium"
+                      >
                         Họ và tên *
                       </Label>
                       <div className="relative mt-2">
                         <Input
                           id="fullName"
                           value={formData.fullName}
-                          onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              fullName: e.target.value,
+                            })
+                          }
                           placeholder="Nguyễn Văn A"
-                          className="pl-4"
+                          className={cn(
+                            "pl-4",
+                            "transition-all duration-200 ease-out",
+                            "focus:border-primary focus:ring-2 focus:ring-primary/20",
+                            "focus:scale-[1.02] hover:border-primary/50"
+                          )}
                           required
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="email" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="email"
+                        className="text-foreground font-medium"
+                      >
                         Email *
                       </Label>
                       <div className="relative mt-2">
@@ -117,7 +164,9 @@ const OrderForm = () => {
                           id="email"
                           type="email"
                           value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
                           placeholder="email@example.com"
                           className="pl-10"
                           required
@@ -126,7 +175,10 @@ const OrderForm = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="phone" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="phone"
+                        className="text-foreground font-medium"
+                      >
                         Số điện thoại *
                       </Label>
                       <div className="relative mt-2">
@@ -134,7 +186,9 @@ const OrderForm = () => {
                         <Input
                           id="phone"
                           value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                          onChange={(e) =>
+                            setFormData({ ...formData, phone: e.target.value })
+                          }
                           placeholder="0123 456 789"
                           className="pl-10"
                           required
@@ -143,10 +197,18 @@ const OrderForm = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="package" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="package"
+                        className="text-foreground font-medium"
+                      >
                         Gói luận giải *
                       </Label>
-                      <Select value={formData.package} onValueChange={(value) => setFormData({...formData, package: value})}>
+                      <Select
+                        value={formData.package}
+                        onValueChange={(value) =>
+                          setFormData({ ...formData, package: value })
+                        }
+                      >
                         <SelectTrigger className="mt-2">
                           <SelectValue placeholder="Chọn gói luận giải" />
                         </SelectTrigger>
@@ -161,7 +223,10 @@ const OrderForm = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="birthDate" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="birthDate"
+                        className="text-foreground font-medium"
+                      >
                         Ngày sinh *
                       </Label>
                       <div className="relative mt-2">
@@ -170,7 +235,12 @@ const OrderForm = () => {
                           id="birthDate"
                           type="date"
                           value={formData.birthDate}
-                          onChange={(e) => setFormData({...formData, birthDate: e.target.value})}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              birthDate: e.target.value,
+                            })
+                          }
                           className="pl-10"
                           required
                         />
@@ -178,21 +248,32 @@ const OrderForm = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="birthTime" className="text-foreground font-medium">
+                      <Label
+                        htmlFor="birthTime"
+                        className="text-foreground font-medium"
+                      >
                         Giờ sinh (nếu có)
                       </Label>
                       <Input
                         id="birthTime"
                         type="time"
                         value={formData.birthTime}
-                        onChange={(e) => setFormData({...formData, birthTime: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            birthTime: e.target.value,
+                          })
+                        }
                         className="mt-2"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="birthPlace" className="text-foreground font-medium">
+                    <Label
+                      htmlFor="birthPlace"
+                      className="text-foreground font-medium"
+                    >
                       Nơi sinh *
                     </Label>
                     <div className="relative mt-2">
@@ -200,7 +281,12 @@ const OrderForm = () => {
                       <Input
                         id="birthPlace"
                         value={formData.birthPlace}
-                        onChange={(e) => setFormData({...formData, birthPlace: e.target.value})}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            birthPlace: e.target.value,
+                          })
+                        }
                         placeholder="Thành phố, Tỉnh"
                         className="pl-10"
                         required
@@ -210,12 +296,17 @@ const OrderForm = () => {
 
                   <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
                     <p className="text-sm text-foreground font-inter leading-relaxed">
-                      <strong>Lưu ý:</strong> Thông tin càng chính xác, bản luận giải càng chi tiết. 
-                      Nếu không nhớ giờ sinh chính xác, hãy ước lượng gần nhất.
+                      <strong>Lưu ý:</strong> Thông tin càng chính xác, bản luận
+                      giải càng chi tiết. Nếu không nhớ giờ sinh chính xác, hãy
+                      ước lượng gần nhất.
                     </p>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-gradient-hero text-white font-semibold py-4 text-lg">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full bg-gradient-hero text-white font-semibold py-4 text-lg"
+                  >
                     <CreditCard className="w-5 h-5 mr-2" />
                     Tiếp tục thanh toán
                   </Button>
@@ -252,11 +343,12 @@ const OrderForm = () => {
 
                   <div className="bg-warning/10 border border-warning/20 rounded-xl p-4">
                     <p className="text-sm text-foreground">
-                      <strong>Quan trọng:</strong> Nhập SĐT hoặc Email khi chuyển khoản để nhận kết quả nhanh nhất
+                      <strong>Quan trọng:</strong> Nhập SĐT hoặc Email khi
+                      chuyển khoản để nhận kết quả nhanh nhất
                     </p>
                   </div>
 
-                  <Button 
+                  <Button
                     onClick={handlePaymentComplete}
                     className="bg-success hover:bg-success/90 text-success-foreground font-semibold px-8 py-3"
                   >

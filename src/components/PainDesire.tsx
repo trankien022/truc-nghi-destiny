@@ -1,5 +1,10 @@
 import { AlertTriangle, Star, Quote } from "lucide-react";
 import masterImage from "@/assets/master-truong-nghi.jpg";
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const PainDesire = () => {
   const painPoints = [
@@ -16,6 +21,29 @@ const PainDesire = () => {
     "Cảm giác an tâm và chủ động hơn trong mọi quyết định",
   ];
 
+  const { elementRef: titleRef, isVisible: titleVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 100,
+  });
+
+  const { containerRef: painPointsRef, visibleItems: painPointsVisible } =
+    useStaggeredAnimation(painPoints.length, {
+      threshold: 0.2,
+      staggerDelay: 150,
+    });
+
+  const { containerRef: desiresRef, visibleItems: desiresVisible } =
+    useStaggeredAnimation(desires.length, {
+      threshold: 0.2,
+      staggerDelay: 150,
+      delay: 200,
+    });
+
+  const { elementRef: imageRef, isVisible: imageVisible } = useScrollAnimation({
+    threshold: 0.3,
+    delay: 300,
+  });
+
   return (
     <section id="pain-desire" className="py-20 bg-background scroll-mt-24">
       <div className="container mx-auto px-4">
@@ -31,42 +59,26 @@ const PainDesire = () => {
               <h2 className="font-playfair text-3xl font-bold text-foreground mb-6">
                 Vẫn đang quay cuồng, mơ hồ?
               </h2>
-              <div className="space-y-4">
+              <div ref={painPointsRef} className="space-y-4">
                 {painPoints.map((pain, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3 animate-slide-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className={cn(
+                      "flex items-start gap-3",
+                      "transition-all duration-600 ease-out-expo",
+                      painPointsVisible[index]
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-8"
+                    )}
                   >
-                    <div className="w-2 h-2 rounded-full bg-destructive flex-shrink-0 mt-3"></div>
+                    <div
+                      className={cn(
+                        "w-2 h-2 rounded-full bg-destructive flex-shrink-0 mt-3",
+                        "transition-all duration-200 ease-out hover:scale-150"
+                      )}
+                    ></div>
                     <p className="text-muted-foreground font-inter leading-relaxed">
                       {pain}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="animate-fade-in">
-              <div className="flex items-center gap-2 text-secondary mb-4">
-                <Star className="w-5 h-5" />
-                <span className="font-semibold text-sm uppercase tracking-wide">
-                  Sau khi luận giải
-                </span>
-              </div>
-              <h3 className="font-playfair text-2xl font-bold text-foreground mb-6">
-                Rõ ràng, tự tin, chủ động
-              </h3>
-              <div className="space-y-4">
-                {desires.map((desire, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-3 animate-slide-up"
-                    style={{ animationDelay: `${index * 0.1 + 0.4}s` }}
-                  >
-                    <div className="w-2 h-2 rounded-full bg-secondary flex-shrink-0 mt-3"></div>
-                    <p className="text-foreground font-inter leading-relaxed">
-                      {desire}
                     </p>
                   </div>
                 ))}
