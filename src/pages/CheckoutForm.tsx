@@ -84,9 +84,30 @@ const CheckoutForm: React.FC = () => {
     }).format(price);
   };
 
+  // Get API URL with fallback logic
+  const getApiUrl = () => {
+    // Priority: Environment variable > Production detection > Local fallback
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+
+    // Auto-detect production environment
+    if (
+      window.location.hostname === "tuvitrucnghi.online" ||
+      window.location.hostname.includes("vercel.app")
+    ) {
+      return "https://tuvitrucnghi-api.vercel.app";
+    }
+
+    // Local development fallback
+    return "http://localhost:3030";
+  };
+
   const testConnection = async () => {
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3030";
+      const apiUrl = getApiUrl();
+      console.log("🔗 Using API URL:", apiUrl);
+
       const response = await fetch(`${apiUrl}/api/test-cors`, {
         method: "GET",
         credentials: "include",
@@ -106,7 +127,9 @@ const CheckoutForm: React.FC = () => {
     console.log("Sending request to PayOS with data:", data);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3030";
+      const apiUrl = getApiUrl();
+      console.log("🚀 Creating payment with API URL:", apiUrl);
+
       const response = await fetch(`${apiUrl}/api/payments/payos/create`, {
         method: "POST",
         headers: {

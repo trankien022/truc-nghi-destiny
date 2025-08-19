@@ -7,13 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
+    "build:prod": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
+    "preview:prod": "vite build --mode production && vite preview",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "server": "node server.js",
-    "server:dev": "nodemon server.js"
+    "server:dev": "nodemon server.js",
+    "start": "concurrently \"npm run server:dev\" \"npm run dev\"",
+    "start:prod": "concurrently \"npm run server\" \"npm run preview:prod\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
