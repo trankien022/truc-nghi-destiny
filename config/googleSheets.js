@@ -20,24 +20,30 @@ class GoogleSheetsService {
         return;
       }
 
-      // Load credentials
-      const credentialsPath = process.env.GOOGLE_CREDENTIALS_PATH;
-      if (!credentialsPath) {
-        throw new Error(
-          "GOOGLE_CREDENTIALS_PATH environment variable is not set"
-        );
-      }
+      // Load credentials from environment or file
+      let credentials;
 
-      const fullCredentialsPath = path.resolve(credentialsPath);
-      if (!fs.existsSync(fullCredentialsPath)) {
-        throw new Error(
-          `Credentials file not found at: ${fullCredentialsPath}`
-        );
-      }
+      if (process.env.GOOGLE_CREDENTIALS_JSON) {
+        // Production: Load from environment variable
+        credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+      } else {
+        // Development: Load from file
+        const credentialsPath = process.env.GOOGLE_CREDENTIALS_PATH;
+        if (!credentialsPath) {
+          throw new Error(
+            "GOOGLE_CREDENTIALS_PATH or GOOGLE_CREDENTIALS_JSON environment variable is required"
+          );
+        }
 
-      const credentials = JSON.parse(
-        fs.readFileSync(fullCredentialsPath, "utf8")
-      );
+        const fullCredentialsPath = path.resolve(credentialsPath);
+        if (!fs.existsSync(fullCredentialsPath)) {
+          throw new Error(
+            `Credentials file not found at: ${fullCredentialsPath}`
+          );
+        }
+
+        credentials = JSON.parse(fs.readFileSync(fullCredentialsPath, "utf8"));
+      }
 
       // Create JWT auth
       this.auth = new google.auth.JWT(
