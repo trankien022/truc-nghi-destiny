@@ -29,6 +29,8 @@ app.use(
       "http://localhost:3000",
       "https://tuvitrucnghi.online",
       "https://www.tuvitrucnghi.online",
+      "https://truc-nghi-destiny.vercel.app",
+      "https://truc-nghi-destiny-*.vercel.app", // Preview deployments
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
