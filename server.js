@@ -8,7 +8,6 @@ import googleSheetsService from "./config/googleSheets.js";
 dotenv.config();
 
 const app = express();
-const PORT = 3030;
 
 // Initialize PayOS
 const payOS = new PayOS(
@@ -18,20 +17,25 @@ const payOS = new PayOS(
 );
 
 // Middleware
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:8080",
+  "http://localhost:8080",
+  "http://localhost:8081",
+  "http://localhost:8083",
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://tuvitrucnghi.online",
+  "https://www.tuvitrucnghi.online",
+  "https://truc-nghi-destiny.vercel.app",
+];
+
+if (process.env.VERCEL_URL) {
+  allowedOrigins.push(`https://${process.env.VERCEL_URL}`);
+}
+
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_URL || "http://localhost:8080",
-      "http://localhost:8080",
-      "http://localhost:8081",
-      "http://localhost:8083",
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://tuvitrucnghi.online",
-      "https://www.tuvitrucnghi.online",
-      "https://truc-nghi-destiny.vercel.app",
-      "https://truc-nghi-destiny-*.vercel.app", // Preview deployments
-    ],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
@@ -377,34 +381,8 @@ app.use((req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, async () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(
-    `📝 PayOS Client ID: ${
-      process.env.PAYOS_CLIENT_ID ? "Configured" : "Missing"
-    }`
-  );
-  console.log(
-    `🔑 PayOS API Key: ${process.env.PAYOS_API_KEY ? "Configured" : "Missing"}`
-  );
-  console.log(
-    `🔐 PayOS Checksum Key: ${
-      process.env.PAYOS_CHECKSUM_KEY ? "Configured" : "Missing"
-    }`
-  );
-
-  // Check Google Sheets configuration
-  console.log(
-    `📊 Google Credentials: ${
-      process.env.GOOGLE_CREDENTIALS_PATH ? "Configured" : "Missing"
-    }`
-  );
-  console.log(
-    `📋 Sheet ID: ${process.env.SHEET_ID ? "Configured" : "Missing"}`
-  );
-
-  // Test Google Sheets connection
+// Initialize Google Sheets service on startup
+(async () => {
   try {
     await googleSheetsService.initialize();
     console.log("✅ Google Sheets service ready");
@@ -417,4 +395,7 @@ app.listen(PORT, async () => {
       "⚠️ Server will continue but Google Sheets features will not work"
     );
   }
-});
+})();
+
+// Export the app for Vercel
+export default app;

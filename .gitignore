@@ -31,3 +31,4 @@ dist-ssr
 
 # Google Sheets Credentials
 config/google-credentials.json
+.vercel
