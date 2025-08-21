@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Star, Shield, FileText, Users } from "lucide-react";
-import heroImage from "@/assets/hero-astrology.jpg";
+// Placeholder image for hero section
+const heroImage =
+  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop&crop=center";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 

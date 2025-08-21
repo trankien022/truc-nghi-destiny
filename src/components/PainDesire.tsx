@@ -1,5 +1,7 @@
 import { AlertTriangle, Star, Quote } from "lucide-react";
-import masterImage from "@/assets/master-truong-nghi.jpg";
+// Placeholder image for master
+const masterImage =
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces";
 import {
   useScrollAnimation,
   useStaggeredAnimation,

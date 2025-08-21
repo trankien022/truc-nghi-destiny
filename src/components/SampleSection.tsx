@@ -8,7 +8,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import sampleChart from "@/assets/sample-chart.jpg";
+// Placeholder image for sample chart
+const sampleChart =
+  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center";
 
 const SampleSection = () => {
   const checklist = [

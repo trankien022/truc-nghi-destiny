@@ -1,6 +1,8 @@
 import { Award, Users, TrendingUp, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import masterImage from "@/assets/master-truong-nghi.jpg";
+// Placeholder image for master
+const masterImage =
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=faces";
 
 const Credibility = () => {
   const stats = [
